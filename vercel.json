@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/travelate.html", "destination": "/public/travelate.html" },
+    { "source": "/", "destination": "/index.html" }
+  ]
+}
