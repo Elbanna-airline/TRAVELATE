@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TravELate — Loading…</title>
+  <meta name="robots" content="noindex">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;height:100vh;background:#071025;color:#cbd5e1;margin:0}.box{max-width:760px;padding:24px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);text-align:center}a{color:#60a5fa}</style>
+</head>
+<body>
+  <div class="box">
+    <h2>جاري تحميل الصفحة...</h2>
+    <p>إذا لم تظهر الصفحة تلقائياً، افتح الملف مباشرة على GitHub أو أعد المحاولة.</p>
+    <p><a id="srcLink" href="#" target="_blank">فتح travelate.html على GitHub</a></p>
+  </div>
+
+  <script>
+    (function(){
+      const RAW = 'https://raw.githubusercontent.com/Elbanna-airline/TRAVELATE/b9dbfbeface23c56f5bb6338b1f4f022834c46bc/travelate.html';
+      document.getElementById('srcLink').href = RAW;
+      fetch(RAW).then(function(res){
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        return res.text();
+      }).then(function(html){
+        // Replace current document with the fetched HTML so URL stays /travelate.html on Vercel
+        document.open();
+        document.write(html);
+        document.close();
+      }).catch(function(err){
+        console.error('Failed to load travelate.html', err);
+        const box = document.querySelector('.box');
+        box.innerHTML = '<h3>فشل تحميل الصفحة</h3><p>حدث خطأ أثناء جلب الملف من GitHub: '+err.message+'</p><p>يمكنك فتح الملف يدوياً: <a href="'+RAW+'" target="_blank">travelate.html (raw)</a></p>';
+      });
+    })();
+  </script>
+</body>
+</html>
