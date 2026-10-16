@@ -1,37 +1,152 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" translate="no" class="notranslate">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>TravELate — Loading…</title>
-  <meta name="robots" content="noindex">
-  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;height:100vh;background:#071025;color:#cbd5e1;margin:0}.box{max-width:760px;padding:24px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);text-align:center}a{color:#60a5fa}</style>
-</head>
-<body>
-  <div class="box">
-    <h2>جاري تحميل الصفحة...</h2>
-    <p>إذا لم تظهر الصفحة تلقائياً، افتح الملف مباشرة على GitHub أو أعد المحاولة.</p>
-    <p><a id="srcLink" href="#" target="_blank">فتح travelate.html على GitHub</a></p>
-  </div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="ar">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>TravELate — Travel, Decoded</title>
+<style>
+html {
+  scroll-behavior: smooth;
+}
 
-  <script>
-    (function(){
-      const RAW = 'https://raw.githubusercontent.com/Elbanna-airline/TRAVELATE/b9dbfbeface23c56f5bb6338b1f4f022834c46bc/travelate.html';
-      document.getElementById('srcLink').href = RAW;
-      fetch(RAW).then(function(res){
-        if(!res.ok) throw new Error('HTTP '+res.status);
-        return res.text();
-      }).then(function(html){
-        // Replace current document with the fetched HTML so URL stays /travelate.html on Vercel
-        document.open();
-        document.write(html);
-        document.close();
-      }).catch(function(err){
-        console.error('Failed to load travelate.html', err);
-        const box = document.querySelector('.box');
-        box.innerHTML = '<h3>فشل تحميل الصفحة</h3><p>حدث خطأ أثناء جلب الملف من GitHub: '+err.message+'</p><p>يمكنك فتح الملف يدوياً: <a href="'+RAW+'" target="_blank">travelate.html (raw)</a></p>';
-      });
-    })();
-  </script>
-</body>
-</html>
+:root{
+  --red:#dc2626;--red-dark:#b91c1c;--blue:#2a4a7f;--blue-mid:#3f6498;
+  --green:#16a34a;--gray:#64748b;--border:#1e293b;--surface:#080d18;
+  --surface2:#0f1929;--surface3:#162236;--white:#f0f4ff;
+  --yellow:#fbbf24;--accent:#7db9e8;
+  --radius:14px;--radius-sm:10px;
+}
+
+html.light-mode {
+  --red:#dc2626;--red-dark:#b91c1c;--blue:#2a4a7f;--blue-mid:#3f6498;
+  --green:#16a34a;--gray:#65676b;--border:#cbd5e1;--surface:#f8fafc;
+  --surface2:#ffffff;--surface3:#f1f5f9;--white:#0f172a;
+  --yellow:#d97706;--accent:#1d4ed8;
+}
+
+.theme-toggle-btn {
+  position: fixed;top: 18px;left: 18px;z-index: 9999;
+  width: 44px;height: 44px;border-radius: 50%;border: none;cursor: pointer;
+  display: flex;align-items: center;justify-content: center;font-size: 20px;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);background: var(--surface2);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);border: 1.5px solid var(--border);color: var(--white);
+}
+.theme-toggle-btn:hover { transform: scale(1.1) rotate(15deg);box-shadow: 0 4px 24px rgba(0,0,0,0.22); }
+
+html.light-mode body { color: #1c1e21; }
+html.light-mode .card { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+html.light-mode input,html.light-mode select,html.light-mode textarea { color: #1c1e21;background: #ffffff;border-color: #dce0e8; }
+html.light-mode input:focus,html.light-mode select:focus,html.light-mode textarea:focus { border-color: #1d4ed8;background: #fff;box-shadow: 0 0 0 3px rgba(29,78,216,.12); }
+html.light-mode input::placeholder,html.light-mode textarea::placeholder { color: #b0b3b8; }
+html.light-mode select option { background: #fff; color: #1c1e21; }
+html.light-mode .btn-copy { background: #e4e6eb; color: #1c1e21; border-color: #ccd0d5; }
+html.light-mode .btn-copy:hover { background: #d8dadf; }
+html.light-mode .btn-rules { background: #dbeafe; color: #1d4ed8; border-color: #bfdbfe; }
+html.light-mode .btn-rules:hover { background: #bfdbfe; }
+html.light-mode .btn-reset { background: #f0f2f5; color: #65676b; border-color: #dce0e8; }
+html.light-mode .btn-undo { background: #f1f5f9; color: #1d4ed8; border-color: #bfdbfe; }
+html.light-mode .output { background: #fff; border-color: #dce0e8; }
+html.light-mode .item { color: #444950; }
+html.light-mode .title { color: #1c1e21; }
+html.light-mode .line { background: #dce0e8; }
+html.light-mode .small { color: #65676b; }
+html.light-mode .leg-title { color: #1c1e21; }
+html.light-mode .layover { background: #fff5f5; border-color: #ffd0d0; }
+html.light-mode .hotel-section { background: #f7f8fc; border-color: #dce0e8; }
+html.light-mode .room-section { background: #fff; border-color: #e4e6eb; }
+html.light-mode .add-btn { background: #dbeafe; color: #1d4ed8; border-color: #bfdbfe; }
+html.light-mode .add-btn.green { background: #e6f9ee; color: #16a34a; border-color: #bbf7d0; }
+html.light-mode .modal-box,html.light-mode .gds-modal-box,html.light-mode .airport-modal-box { background: #fff; border-color: #dce0e8; color: #1c1e21; }
+html.light-mode .modal-box h3,html.light-mode .gds-modal-box h3,html.light-mode .airport-modal-box h3 { color: #1d4ed8; }
+html.light-mode .modal-box ol { color: #444950; }
+html.light-mode .modal-close { background: #f0f2f5; color: #65676b; border-color: #dce0e8; }
+html.light-mode .modal-close:hover { background: #e4e6eb; color: #1c1e21; }
+html.light-mode .modal-copy-rules { color: #1d4ed8; border-color: #bfdbfe; }
+html.light-mode .toast { background: #fff; color: #1c1e21; border-color: #dce0e8; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+html.light-mode .gds-drop-zone { border-color: #dce0e8; }
+html.light-mode .gds-drop-zone:hover,html.light-mode .gds-drop-zone.drag { border-color: #1d4ed8; background: rgba(29,78,216,.04); }
+html.light-mode .gds-drop-zone .dz-title { color: #1c1e21; }
+html.light-mode .gds-result-box { background: #f1f5f9; border-color: #cbd5e1; color: #1d4ed8; }
+html.light-mode .gds-btn-cancel { color: #65676b; border-color: #dce0e8; }
+html.light-mode .brand-header { background: transparent; }
+html.light-mode .footer { border-top-color: #dce0e8; }
+html.light-mode .footer-tagline { color: #64748b; }
+html.light-mode .footer-sub { color: #65676b; }
+html.light-mode .footer-powered { color: #b0b3b8; }
+html.light-mode .brand-badge { background: rgba(29,78,216,0.07); border-color: rgba(29,78,216,.14); color: #65676b; }
+html.light-mode .section-label { color: #65676b; }
+html.light-mode .hint { color: #65676b; }
+html.light-mode .gds-cam-btn { background: #dbeafe; color: #1d4ed8; border-color: #bfdbfe; }
+html.light-mode .img-paste-bar { background: rgba(255,255,255,.92); border-top-color: #dce0e8; }
+html.light-mode .img-paste-btn-cancel { color: #65676b; border-color: #dce0e8; }
+html.light-mode .img-paste-btn-cancel:hover { background: #f0f2f5; }
+
+/* Currency selector */
+.currency-select-wrap{display:inline-flex;align-items:center;gap:6px;margin-right:8px;}
+.currency-badge{padding:3px 10px;border-radius:999px;background:#0c1e3a;color:#60a5fa;border:1px solid #1d4ed855;font-size:12px;font-weight:700;font-family:'Cairo';cursor:pointer;transition:.15s;}
+.currency-badge:hover{background:#1e3a8a22;border-color:#1d4ed8;}
+.currency-badge.active{background:#1d4ed844;border-color:#3b82f6;color:#93c5fd;}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Cairo',sans-serif;background:var(--surface);min-height:100vh;padding:0 0 40px;direction:rtl;color:var(--white);}
+
+.brand-header{width:100%;max-width:860px;margin:0 auto 16px;padding:20px 20px 16px;text-align:center;background:transparent;}
+.brand-banner{height:clamp(56px,8vw,90px);width:auto;max-width:420px;display:block;margin:0 auto;object-fit:contain;filter: drop-shadow(0 4px 24px rgba(0,180,255,0.18));transition: opacity 0.3s ease;}
+.brand-badge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 14px;background:rgba(29,78,216,0.07);border:1px solid rgba(29,78,216,.14);border-radius:999px;font-family:'Space[...]
+.brand-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+.container{max-width:860px;margin:0 auto;padding:32px 20px 0;}
+.card{background:var(--surface2);border-radius:16px;padding:32px;box-shadow:0 16px 48px rgba(0,0,0,.4);border:1px solid var(--border);margin-bottom:16px;}
+.section-label{font-weight:700;font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.8px;margin-top:20px;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.section-label:first-child{margin-top:0;}
+input,select{width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:'Cairo';font-size:14px;background:var(--surface3);color:var(--white);transition:.2[...]
+textarea{width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:monospace;font-size:12.5px;line-height:1.7;background:var(--surface3);color:var(--whit[...]
+input:focus,select:focus,textarea:focus{border-color:var(--blue-mid);outline:none;background:#0d1e33;box-shadow:0 0 0 3px rgba(29,78,216,.12);}
+input::placeholder,textarea::placeholder{color:#334155;font-family:monospace;font-size:12px;}
+select option{background:var(--surface2);color:var(--white);}
+.hint{font-size:13.5px;color:#64748b;margin-top:6px;font-weight:500;}
+.hint-t{color:var(--yellow);font-weight:800;font-family:monospace;}
+.row{display:flex;gap:10px;}.row>*{flex:1;}
+.section-divider{height:1px;background:var(--border);margin:24px 0;}
+.buttons{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap;}
+.btn{flex:1;min-width:90px;padding:12px 8px;border:none;border-radius:var(--radius);font-weight:700;font-size:13px;cursor:pointer;transition:.15s;font-family:'Cairo';display:flex;align-items:center;ju[...]
+.btn:active{transform:scale(.97);}
+.btn-create{background:var(--red);color:#fff;box-shadow:0 4px 16px rgba(225,29,72,.25);}
+.btn-create:hover{background:var(--red-dark);box-shadow:0 4px 20px rgba(225,29,72,.4);}
+.btn-copy{background:#1e293b;color:#e2e8f0;border:1.5px solid #334155;}
+.btn-copy:hover{background:#273449;}
+.btn-rules{background:#0c1e3a;color:#93c5fd;border:1.5px solid #1d4ed855;}
+.btn-rules:hover{background:#1e3a8a22;border-color:#1d4ed8;}
+.btn-reset{background:var(--surface3);color:#64748b;border:1.5px solid #1e293b;flex:.5;}
+.btn-reset:hover{background:#1e293b;color:#94a3b8;}
+.btn-undo{background:var(--surface3);color:#38bdf8;border:1.5px solid #0ea5e922;flex:.5;}
+.btn-undo:hover:not(:disabled){background:#0c1e2e;}
+.btn-undo:disabled{opacity:.25;cursor:not-allowed;}
+.output{margin-top:20px;background:var(--surface);padding:22px;border-radius:var(--radius);border:1.5px solid var(--border);line-height:1.9;min-height:60px;transition: border-color 0.3s ease;}
+.item{display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#94a3b8;padding:1px 0;}
+.title{font-weight:800;font-size:17px;text-align:center;margin-bottom:10px;color:var(--white);}
+.line{height:1px;background:#1e293b;margin:10px 0;}
+.small{font-size:12px;color:#475569;margin-top:3px;}
+.layover{color:#f87171;font-weight:800;margin:3px 0;font-size:13px;background:#1a0a0a;padding:3px 10px;border-radius:8px;display:inline-block;border:1px solid #2a1010;}
+.leg-title{font-weight:700;color:#e2e8f0;font-size:14.5px;}
+.hotel-section{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:12px;position:relative;}
+.room-section{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-top:10px;position:relative;}
+.add-btn{display:inline-flex;align-items:center;gap:6px;background:#0c1e3a;color:#60a5fa;border:1px solid #1d4ed855;border-radius:var(--radius-sm);padding:8px 16px;font-family:'Cairo';font-weight:700;[...]
+.add-btn:hover{background:#1e3a8a22;border-color:#1d4ed8;}
+.add-btn.green{background:#0a1f0f;color:#4ade80;border-color:#16a34a44;}
+.add-btn.green:hover{background:#16a34a22;border-color:var(--green);}
+.remove-btn{position:absolute;top:10px;left:10px;background:transparent;color:#f87171;border:1px solid #3f101044;border-radius:7px;padding:3px 9px;font-family:'Cairo';font-weight:700;font-size:12px;cu[...]
+.remove-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);padding:11px 24px;border-radius:12px;font-weight:800;font-size:14px;display:none;background:#0f1929;color:#e2e8f0;box-shadow:0 8px[...]
+
+.gds-toolbar{display:flex;gap:8px;margin-bottom:6px;align-items:center;flex-wrap:wrap;}
+.gds-cam-btn{padding:7px 16px;border-radius:8px;font-family:'Cairo';font-weight:700;font-size:12px;cursor:pointer;border:1.5px solid #1d4ed855;background:#0c1e3a;color:#60a5fa;transition:.15s;display:[...]
+.gds-cam-btn:hover{background:#1e3a8a22;border-color:#1d4ed8;}
+
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(6px);} 
+... (file truncated for brevity)
